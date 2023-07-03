@@ -1,0 +1,23 @@
+class Solution: #beats 83.37% runtime, 66.33% Memory 
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        diffs = 0
+        chars = {}
+        duplicates = False
+        if len(s) != len(goal):
+            return False
+        for i in range(len(s)):
+            if s[i] not in chars:
+                chars[s[i]] = 1
+            else:
+                duplicates = True
+            if s[i] != goal[i]:
+                match diffs:
+                    case 0:
+                        pair = (s[i], goal[i])
+                    case 1:
+                        if s[i] != pair[1] or goal[i] != pair[0]:
+                            return False
+                    case 2:
+                        return False
+                diffs += 1
+        return diffs == 2 or (diffs == 0 and duplicates)
